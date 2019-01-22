@@ -45,7 +45,7 @@
 		</listhead>
 		<template name="model">
 			<listitem>
-				<listcell label="@load(each.prodName)"></listcell>
+				<listcell label="@load(each.prodId)"></listcell>
 				<listcell label="@load(each.prodPrice)"></listcell>
 				<listcell label="@load(each.prodQty)"></listcell>
 				<listcell label="@load(each.subTotal)"></listcell>

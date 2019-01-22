@@ -50,6 +50,7 @@ public class TOrderVmd {
 		}
 	}
 	
+	@NotifyChange("customerDto")
 	@Command
 	public void delete(){
 		if (tOrderDto.getOrderId() == null) {

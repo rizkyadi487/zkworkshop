@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dto.TOrderDetailDto;
+import entity.TOrderDetailPK;
 
 
 public interface TOrderDetailSvc {
@@ -10,6 +11,6 @@ public interface TOrderDetailSvc {
 	public void save (TOrderDetailDto dto);
 	public void update (TOrderDetailDto dto);
 	public void delete (TOrderDetailDto dto);
-	public TOrderDetailDto findOneBarang (String kodeOrderDetail);
+	public TOrderDetailDto findOneBarang (String kodeOrderDetail);	
 	public List<TOrderDetailDto> findAllOrderDetailBySearch(String cari);
 }

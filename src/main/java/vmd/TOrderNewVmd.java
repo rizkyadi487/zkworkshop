@@ -80,11 +80,13 @@ public class TOrderNewVmd {
 		this.detail = detail;
 	}
 
-	public List<TOrderDto> getDetails() {
+
+
+	public List<TOrderDetailDto> getDetails() {
 		return details;
 	}
 
-	public void setDetails(List<TOrderDto> details) {
+	public void setDetails(List<TOrderDetailDto> details) {
 		this.details = details;
 	}
 
@@ -135,7 +137,7 @@ public class TOrderNewVmd {
 
 	// /============================== OBJECT ===========================
 	
-	List<TOrderDto> details = new ArrayList<TOrderDto>();
+	List<TOrderDetailDto> details = new ArrayList<TOrderDetailDto>();
 	List<MCustomerDto> listCustomer = new ArrayList<MCustomerDto>();
 	List<MProductDto> listProduct = new ArrayList<MProductDto>();
 	Session session = Sessions.getCurrent();
@@ -155,6 +157,7 @@ public class TOrderNewVmd {
 			dto=(TOrderDto) session.getAttribute("editDto");
 			listCustomer = mCustomerSvc.findAllCustomer();
 			listProduct = mProductSvc.findAllProduct();
+			details = tOrderDetailSvc.findAllOrderDetailBySearch(dto.getOrderId());
 			read="true";
 			for (MCustomerDto m : listCustomer) {
 				if (m.getCustId() == dto.getCustId()) {
@@ -191,6 +194,7 @@ public class TOrderNewVmd {
 		detail.setSubTotal(123321);
 		tOrderDetailSvc.save(detail);
 		showModal();
+		
 		//Executions.sendRedirect("TOrder.zul");
 	}
 	

@@ -1,23 +1,30 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dao.MProductDao;
 import dao.TOrderDetailDao;
 import dto.TOrderDetailDto;
+import entity.MProduct;
 import entity.TOrder;
 import entity.TOrderDetail;
 import entity.TOrderDetailPK;
 import service.TOrderDetailSvc;
+
 @Service("tOrderDetailSvc")
 @Transactional
-public class TOrderDetailSvcImpl implements TOrderDetailSvc{
-	
+public class TOrderDetailSvcImpl implements TOrderDetailSvc {
+
 	@Autowired
 	private TOrderDetailDao dao;
+
+	@Autowired
+	private MProductDao daoProduk;
 
 	@Override
 	public List<TOrderDetailDto> findAllOrderDetail() {
@@ -41,13 +48,13 @@ public class TOrderDetailSvcImpl implements TOrderDetailSvc{
 	@Override
 	public void update(TOrderDetailDto dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(TOrderDetailDto dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -58,8 +65,26 @@ public class TOrderDetailSvcImpl implements TOrderDetailSvc{
 
 	@Override
 	public List<TOrderDetailDto> findAllOrderDetailBySearch(String cari) {
-		// TODO Auto-generated method stub
-		return null;
+		TOrderDetailPK pk = new TOrderDetailPK();
+		pk.setOrderId(cari);
+		List<MProduct> listbarang = daoProduk.findAll();
+		List<TOrderDetailDto> listdto = new ArrayList<>();
+		for (MProduct barang : listbarang) {
+			pk.setProdId(barang.getProdId());
+			List<TOrderDetail> list = dao.findDataBySearch(pk);
+			for (TOrderDetail custo : list) {
+				TOrderDetailDto dto = new TOrderDetailDto();
+				dto.setOrderId(custo.getId().getOrderId());
+				dto.setProdId(custo.getId().getProdId());
+				dto.setProdPrice(custo.getProdPrice());
+				dto.setProdQty(custo.getProdQty());
+				dto.setSubTotal(custo.getSubTotal());
+				listdto.add(dto);
+			}
+		}
+		
+
+		return listdto;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import dao.TOrderDao;
 import dto.TOrderDto;
 import entity.TOrder;
+import entity.TOrderPK;
 import service.TOrderSvc;
 
 @Service("tOrderSvc")
@@ -57,8 +58,10 @@ public class TOrderSvcImpl implements TOrderSvc{
 
 	@Override
 	public void delete(TOrderDto dto) {
-		// TODO Auto-generated method stub
-		
+		TOrderPK pk = new TOrderPK();
+		pk.setOrderId(dto.getOrderId());
+		TOrder custo = dao.findOne(pk);
+		dao.delete(custo);
 	}
 
 	@Override
