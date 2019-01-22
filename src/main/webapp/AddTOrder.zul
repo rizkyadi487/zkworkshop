@@ -1,0 +1,92 @@
+<?page title="Add Or Edit" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Add Or Edit" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vmd.TOrderNewVmd')">
+	<hlayout>
+		<button label="Back" onClick="@command('back')"></button>
+		<button label="Save" onClick="@command('save')"></button>
+	</hlayout>
+	<space></space>
+	<grid>
+		<columns>
+			<column label=""></column>
+			<column label=""></column>
+		</columns>
+		<rows>
+			<row>
+				<label value="Order Id"></label>
+				<textbox value="@bind(vm.dto.orderId)" readonly="@load(vm.read)"></textbox>
+			</row>
+			<row>
+				<label value="Customer Name"></label>
+				<combobox model="@load(vm.listCustomer)" selectedItem="@bind(vm.customerDto)"
+				value="@load(vm.customerDto.custName)" >
+					<template name="model">
+						<comboitem label="@bind(each.custName)"></comboitem>
+					</template>
+				</combobox>
+			</row>
+			<row>
+				<label value="Total"></label>
+				<textbox value="@bind(vm.dto.total)" readonly="true"></textbox>
+			</row>
+		</rows>
+	</grid>
+	<space></space>
+	<hlayout>
+		<button label="Add" onClick="@command('showModal')"></button>
+		<button label="Delete" onClick="@command('delete')"></button>
+	</hlayout>
+	<listbox mold="paging" pageSize="3" pagingPosition="bottom" model="@load(vm.details)" emptyMessage="No Item yet">
+		<listhead sizable="true">
+			<listheader label="Product Name"></listheader>
+			<listheader label="Price"></listheader>
+			<listheader label="Qty"></listheader>
+			<listheader label="Subtotal"></listheader>
+		</listhead>
+		<template name="model">
+			<listitem>
+				<listcell label="@load(each.prodName)"></listcell>
+				<listcell label="@load(each.prodPrice)"></listcell>
+				<listcell label="@load(each.prodQty)"></listcell>
+				<listcell label="@load(each.subTotal)"></listcell>
+			</listitem>
+		</template>
+	</listbox>
+		<window width="400px" title="product" border="normal" visible="@bind(vm.statusModal)" mode="modal" contentStyle="overflow:auto">
+		<grid>
+			<columns>
+				<column width="30%" align="right" label=""></column>
+				<column width="70%" label=""></column>
+			</columns>
+			<rows>
+				<row>
+					<label value="Product Name"></label>
+					<combobox model="@load(vm.listProduct)" selectedItem="@bind(vm.productDto)" value="@load(vm.productDto.prodName)">
+						<template name="model">
+							<comboitem label="@load(each.prodName)"></comboitem>
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<label value="Price"></label>
+					<textbox value="@bind(vm.detail.prodPrice)" id="price"></textbox>
+				</row>
+				<row>
+					<label value="Qty"></label>
+					<textbox value="@bind(vm.detail.prodQty)" id="qty"></textbox>
+				</row>
+				<row>
+					<label value="Subtotal"></label>
+					<textbox value="@bind(vm.detail.subTotal)" id="subtotal"></textbox>
+				</row>
+			</rows>
+		</grid>
+		<div align="center">
+			<hlayout>
+				<button label="Save" onClick="@command('saveDetailBarang')"></button>
+				<button label="Back" onClick="@command('showModal')"></button>
+			</hlayout>
+		</div>
+	</window>
+</window>
+</zk>

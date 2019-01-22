@@ -1,0 +1,47 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="TOrder" border="normal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('oke') @init('vmd.TOrderVmd')">
+		<hlayout>
+		
+			<button label="add" onClick="@command('add')"></button>
+			<button label="edit" onClick="@command('edit')"></button>
+			<button label="delete" onClick="@command('delete')"></button>
+			
+		</hlayout>
+
+		<div style="text-align:right;">
+		
+			<label value="Cari" />
+			<textbox value="@bind(oke.cari)" onOK="@command('search')"/>
+			<button onClick="@command('search')">CARI</button>
+		</div>
+
+		<space />
+		<listbox mold="paging" pagingPosition="bottom" pageSize="3" model="@load(oke.dtos)" selectedItem="@bind(oke.tOrderDto)">
+
+			<listhead>
+
+				<listheader label="Order Id" sort="auto"></listheader>
+				<listheader label="Nama Customer" sort="auto"></listheader>
+				<listheader label="Total" sort="auto"></listheader>
+				
+			</listhead>
+
+			<template name="model">
+				<listitem>
+				
+					<listcell label="@load(each.orderId)"></listcell>
+					<listcell label="@load(each.custName)"></listcell>
+					<listcell label="@load(each.total)"></listcell>
+					
+					
+				</listitem>
+			</template>
+			
+			
+		</listbox>
+
+	</window>
+</zk>
